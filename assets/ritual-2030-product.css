@@ -1,0 +1,432 @@
+/* RITUAL 2030 — PRODUCT PAGE REFINEMENT */
+.product-information,
+.product-recommendations {
+  direction: rtl;
+}
+
+.product-information .product-information__grid {
+  align-items: start;
+}
+
+.product-information .product-details > .group-block {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 28px !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.08), rgba(255,255,255,.035)) !important;
+  box-shadow:
+    0 24px 70px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter: blur(20px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(145%);
+}
+
+.product-information .product-details > .group-block::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 90% 0%, rgba(51,220,255,.10), transparent 32%),
+    radial-gradient(circle at 10% 100%, rgba(143,92,255,.10), transparent 34%);
+}
+
+.product-information .product-details > .group-block > * {
+  position: relative;
+  z-index: 1;
+}
+
+.product-information .product-details h1 {
+  margin: 0;
+  text-align: right;
+  color: #fff;
+  font-size: clamp(1.8rem, 2.8vw, 3rem);
+  line-height: 1.25;
+  letter-spacing: -.025em;
+}
+
+.product-information .price,
+.product-information .price-item {
+  text-align: right;
+  font-weight: 850;
+}
+
+.product-information .price-item--regular,
+.product-information .price-item--sale,
+.product-information .price__regular {
+  font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.product-information .product-information__media {
+  min-width: 100%;
+}
+
+.product-information media-gallery {
+  border-radius: 28px;
+}
+
+.product-information .product-media-container {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 24px !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+  box-shadow: 0 18px 50px rgba(0,0,0,.22);
+}
+
+.product-information .product-media-container img,
+.product-information .product-media-container video {
+  border-radius: inherit;
+}
+
+.product-information slideshow-controls,
+.product-information .slideshow-controls {
+  margin-top: 14px;
+}
+
+.product-information .slideshow-control,
+.product-information button.slideshow-control {
+  border-radius: 999px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.product-information .slideshow-control:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 18px rgba(51,220,255,.25);
+}
+
+.product-information variant-picker {
+  display: block;
+  text-align: right;
+}
+
+.product-information variant-picker label,
+.product-information variant-picker legend {
+  text-align: right;
+}
+
+.product-information variant-picker input[type="radio"] + label,
+.product-information .variant-option__button-label {
+  border-radius: 999px !important;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.product-information variant-picker input[type="radio"]:checked + label {
+  box-shadow: 0 0 0 2px rgba(51,220,255,.18), 0 0 20px rgba(51,220,255,.12);
+}
+
+.product-information quantity-selector,
+.product-information .quantity-selector,
+.product-information .quantity {
+  border-radius: 16px !important;
+}
+
+.product-information .add-to-cart-button,
+.product-information button[type="submit"]:not(.slideshow-control) {
+  min-height: 56px;
+  width: 100%;
+  border-radius: 18px !important;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.product-information shopify-accelerated-checkout,
+.product-information .shopify-payment-button {
+  display: none !important;
+}
+
+.product-information .rte,
+.product-information .product-description {
+  text-align: right;
+  line-height: 1.9;
+  color: rgba(247,251,255,.88);
+}
+
+.product-information .rte strong {
+  color: #fff;
+}
+
+.product-information .accordion,
+.product-information details {
+  border-color: rgba(255,255,255,.10) !important;
+}
+
+.product-information summary {
+  text-align: right;
+}
+
+.sticky-add-to-cart__bar {
+  direction: rtl;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(8,20,36,.82);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+}
+
+.sticky-add-to-cart__title,
+.sticky-add-to-cart__variant,
+.sticky-add-to-cart__price {
+  text-align: right;
+}
+
+.product-recommendations .section-resource-list__content {
+  align-items: stretch;
+}
+
+.product-recommendations h2,
+.product-recommendations h3 {
+  width: 100%;
+  text-align: right;
+  color: #fff;
+}
+
+.product-recommendations .product-card,
+.product-recommendations .resource-list__item {
+  border-radius: 22px;
+}
+
+.product-recommendations .product-card {
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.09);
+  box-shadow: 0 14px 36px rgba(0,0,0,.18);
+}
+
+.product-recommendations .product-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(51,220,255,.28);
+  box-shadow: 0 24px 50px rgba(0,0,0,.28), 0 0 22px rgba(51,220,255,.10);
+}
+
+.product-recommendations .product-card img {
+  border-radius: 18px;
+}
+
+.product-recommendations .product-card__content,
+.product-recommendations .product-card__content * {
+  text-align: right;
+}
+
+@media screen and (min-width: 750px) {
+  .product-information__grid--half.product-information--media-left .product-information__media {
+    padding-inline-end: 16px;
+  }
+
+  .product-information__grid--half.product-information--media-left .product-details {
+    padding-inline-start: 16px;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .product-information {
+    --page-margin: 14px;
+  }
+
+  .product-information .product-details {
+    padding-top: 18px;
+  }
+
+  .product-information .product-details > .group-block {
+    border-radius: 22px !important;
+    padding: 22px !important;
+  }
+
+  .product-information .product-details h1 {
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
+  }
+
+  .product-information .product-media-container,
+  .product-information media-gallery {
+    border-radius: 20px !important;
+  }
+
+  .product-recommendations {
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-information *,
+  .product-recommendations * {
+    transition-duration: .01ms !important;
+  }
+}
+
+/* =========================================================
+   2030 PRODUCT GALLERY CONTROL FIX
+   Fixes slideshow arrows/thumbnails inheriting global CTA styles.
+   ========================================================= */
+
+.product-information slideshow-arrows .slideshow-control,
+.product-information slideshow-controls .slideshow-control {
+  position: relative !important;
+  overflow: hidden !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+.product-information slideshow-arrows .slideshow-control::before,
+.product-information slideshow-controls .slideshow-control::before {
+  content: none !important;
+  display: none !important;
+}
+
+.product-information slideshow-arrows .slideshow-control {
+  width: 48px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
+  height: 48px !important;
+  min-height: 48px !important;
+  max-height: 48px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-radius: 999px !important;
+  background: rgba(8,20,36,.82) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 26px rgba(0,0,0,.24) !important;
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  opacity: 1 !important;
+}
+
+.product-information slideshow-arrows .slideshow-control:hover {
+  transform: translateY(-2px) scale(1.04) !important;
+  border-color: rgba(51,220,255,.45) !important;
+  box-shadow:
+    0 12px 28px rgba(0,0,0,.28),
+    0 0 22px rgba(51,220,255,.16) !important;
+}
+
+.product-information slideshow-controls[thumbnails] {
+  width: 100% !important;
+  margin-top: 16px !important;
+  padding: 0 !important;
+}
+
+.product-information slideshow-controls .slideshow-controls__thumbnails {
+  gap: 10px !important;
+  justify-content: center;
+}
+
+.product-information slideshow-controls .slideshow-controls__thumbnail {
+  width: 64px !important;
+  min-width: 64px !important;
+  max-width: 64px !important;
+  height: 64px !important;
+  min-height: 64px !important;
+  max-height: 64px !important;
+  padding: 3px !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 14px !important;
+  background: rgba(255,255,255,.055) !important;
+  box-shadow: none !important;
+  color: inherit !important;
+}
+
+.product-information slideshow-controls .slideshow-controls__thumbnail[aria-selected="true"] {
+  border-color: rgba(51,220,255,.7) !important;
+  box-shadow: 0 0 0 2px rgba(51,220,255,.12), 0 0 20px rgba(51,220,255,.12) !important;
+}
+
+.product-information slideshow-controls .slideshow-controls__thumbnail:hover {
+  transform: translateY(-2px) !important;
+  border-color: rgba(51,220,255,.4) !important;
+}
+
+.product-information slideshow-controls .slideshow-controls__thumbnail img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 10px !important;
+}
+
+.product-information slideshow-controls .slideshow-controls__dots .slideshow-control {
+  width: 12px !important;
+  min-width: 12px !important;
+  max-width: 12px !important;
+  height: 12px !important;
+  min-height: 12px !important;
+  max-height: 12px !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: rgba(255,255,255,.26) !important;
+  box-shadow: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+}
+
+.product-information slideshow-controls .slideshow-controls__dots .slideshow-control[aria-selected="true"] {
+  background: var(--f-cyan) !important;
+  box-shadow: 0 0 14px rgba(51,220,255,.35) !important;
+}
+
+/* Variant pills */
+.product-information variant-picker .variant-option__button-label,
+.product-information variant-picker input[type="radio"] + label {
+  min-height: 48px;
+  padding: 10px 16px !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.055) !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.product-information variant-picker input[type="radio"]:checked + label {
+  background: linear-gradient(100deg, rgba(51,220,255,.82), rgba(74,124,255,.82)) !important;
+  border-color: rgba(51,220,255,.65) !important;
+  color: #fff !important;
+}
+
+/* Keep media elegant and inside the viewport on desktop */
+@media screen and (min-width: 990px) {
+  .product-information media-gallery {
+    max-height: calc(100svh - 130px);
+  }
+
+  .product-information .product-media-container,
+  .product-information .product-media-container img,
+  .product-information .product-media-container video {
+    max-height: calc(100svh - 180px);
+  }
+
+  .product-information .product-media-container img,
+  .product-information .product-media-container video {
+    object-fit: contain !important;
+  }
+}
+
+/* Softer, more balanced details panel */
+.product-information .product-details > .group-block {
+  background:
+    linear-gradient(145deg, rgba(23,37,52,.90), rgba(16,28,41,.82)) !important;
+}
+
+.product-information .product-details h1 {
+  max-width: 18ch;
+  margin-inline-start: auto;
+}
+
+.product-information .rte,
+.product-information .product-description {
+  font-size: 1rem;
+  line-height: 2;
+}
+
+@media screen and (max-width: 749px) {
+  .product-information slideshow-arrows .slideshow-control {
+    width: 42px !important;
+    min-width: 42px !important;
+    height: 42px !important;
+    min-height: 42px !important;
+  }
+
+  .product-information slideshow-controls .slideshow-controls__thumbnail {
+    width: 56px !important;
+    min-width: 56px !important;
+    height: 56px !important;
+    min-height: 56px !important;
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "indexes_mobile_home": {
+      "type": "indexes-mobile-home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "indexes_mobile_home"
+  ]
+}

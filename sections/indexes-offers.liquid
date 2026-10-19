@@ -1,0 +1,78 @@
+{% stylesheet %}
+  .ix-offers-page {
+    --ix-offers-red: #d90016;
+    --ix-offers-text: #111;
+    direction: rtl;
+    background: #f7f7f7;
+    color: var(--ix-offers-text);
+    padding: clamp(16px, 3vw, 36px);
+    min-width: 0;
+  }
+
+  .ix-offers-page .ix-offers-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: clamp(24px, 5vw, 48px);
+    margin-block-end: 24px;
+    border: 1px solid #f1d9dc;
+    border-radius: 20px;
+    background:
+      radial-gradient(
+        ellipse at bottom left,
+        #d9001614,
+        transparent 65%
+      ),
+      #fff;
+    box-shadow: 0 6px 20px #00000008;
+  }
+
+  .ix-offers-page .ix-offers-hero > div {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .ix-offers-page .ix-offers-hero h1 {
+    margin: 0 0 10px;
+    color: var(--ix-offers-text);
+    font-size: clamp(28px, 5vw, 44px);
+    line-height: 1.4;
+  }
+
+  .ix-offers-page .ix-offers-hero p {
+    margin: 0;
+    color: #595959;
+    line-height: 1.8;
+  }
+
+  .ix-offers-page .ix-offers-hero > svg {
+    flex: 0 0 56px;
+    width: 56px;
+    height: 56px;
+    color: var(--ix-offers-red);
+  }
+
+  .ix-offers-page .ix-empty-state {
+    grid-column: 1 / -1;
+    padding: 28px 20px;
+    border-radius: 16px;
+    background: #fff;
+    color: #595959;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  @media (max-width: 479px) {
+    .ix-offers-page .ix-offers-hero {
+      gap: 12px;
+      border-radius: 16px;
+    }
+
+    .ix-offers-page .ix-offers-hero > svg {
+      flex-basis: 44px;
+      width: 44px;
+      height: 44px;
+    }
+  }
+{% endstylesheet %}

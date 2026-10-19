@@ -1,0 +1,12 @@
+{% if button_only %}
+<button type="button" class="ix-install-button" data-ix-install hidden aria-label="إضافة اندكس ستور للشاشة الرئيسية" aria-haspopup="dialog" aria-controls="ix-install-dialog">
+<svg viewBox="0 0 24 24" width="23" height="23" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M12 6v9m-3-3 3 3 3-3M10 19h4"/></svg><span data-ix-install-label>التطبيق</span>
+</button>
+{% else %}
+<dialog id="ix-install-dialog" class="ix-install-dialog" dir="rtl" aria-labelledby="ix-install-title" aria-describedby="ix-install-help">
+<h2 id="ix-install-title">إضافة اندكس ستور</h2>
+<p id="ix-install-help">من قائمة المتصفح، ابحث عن «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية» إذا كان الخيار متاحًا. قد تكون الإضافة اختصارًا بحسب المتصفح.</p>
+<p>يتطلب استخدام المتجر اتصالًا بالإنترنت.</p>
+<form method="dialog"><button class="ix-install-close" autofocus>إغلاق</button></form>
+</dialog>
+{% endif %}

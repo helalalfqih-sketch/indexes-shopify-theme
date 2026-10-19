@@ -1,0 +1,49 @@
+{% liquid
+  assign wa_product = product
+  assign wa_variant = nil
+
+  if template.name == 'product' and wa_product != blank
+    assign wa_variant = wa_product.selected_or_first_available_variant
+  endif
+
+  assign whatsapp_page_link = canonical_url | url_decode
+
+  capture whatsapp_message
+    if template.name == 'product' and wa_product != blank
+      echo 'مرحباً، أريد طلب هذا المنتج من اندكس ستور: '
+      echo wa_product.title
+
+      if wa_variant != blank and wa_product.has_only_default_variant == false
+        echo ' | الخيار: '
+        echo wa_variant.title
+      endif
+
+      if wa_variant != blank
+        echo ' | السعر: '
+        echo wa_variant.price | money
+        echo ' | Variant ID: '
+        echo wa_variant.id
+      endif
+
+      echo ' | الرابط: '
+      echo whatsapp_page_link
+    else
+      echo 'مرحباً، أريد الاستفسار من اندكس ستور | الرابط: '
+      echo whatsapp_page_link
+    endif
+  endcapture
+%}
+
+<a
+  class="floating-whatsapp"
+  href="https://wa.me/967771370740?text={{ whatsapp_message | strip | url_encode }}"
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="تواصل عبر واتساب"
+  {% if template.name == 'product' and product != blank %}
+    data-product-id="{{ product.id }}"
+    data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+  {% endif %}
+>
+  {% render 'indexes-whatsapp-icon' %}
+</a>

@@ -1,0 +1,10 @@
+{% doc %}
+  Renders links only to existing shop policies.
+  @example
+  {% render 'indexes-policy-links' %}
+{% enddoc %}
+<nav class="ix-policy-links" aria-label="{{ 'indexes_audit.policies' | t | escape }}">
+  {% for policy in shop.policies %}
+    {% if policy.body != blank %}<a href="{{ policy.url }}">{% assign policy_key = policy.url | split: '/' | last %}{% case policy_key %}{% when 'privacy-policy' %}{{ 'indexes_ux.privacy' | t }}{% when 'refund-policy' %}{{ 'indexes_ux.refund' | t }}{% when 'terms-of-service' %}{{ 'indexes_ux.terms' | t }}{% when 'shipping-policy' %}{{ 'indexes_ux.shipping' | t }}{% when 'contact-information' %}{{ 'indexes_ux.contact' | t }}{% else %}{{ policy.title | escape }}{% endcase %}</a>{% endif %}
+  {% endfor %}
+</nav>

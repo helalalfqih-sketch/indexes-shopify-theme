@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "indexes-collections",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

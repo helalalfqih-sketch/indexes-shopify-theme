@@ -1,0 +1,235 @@
+/* RITUAL 2030 — UI COLOR SYSTEM + FLOATING WHATSAPP */
+:root{
+  --r30-bg:#07111F;
+  --r30-bg-2:#0A1524;
+  --r30-surface:#0E1B2B;
+  --r30-surface-2:#13263A;
+  --r30-text:#F7FBFF;
+  --r30-muted:#A9BDD2;
+  --r30-cyan:#33DCFF;
+  --r30-blue:#4A7CFF;
+  --r30-violet:#8F5CFF;
+  --r30-border:rgba(255,255,255,.12);
+  --r30-wa:#25D366;
+}
+
+html,body{
+  background:var(--r30-bg)!important;
+  color:var(--r30-text)!important;
+}
+
+body,
+.page-wrapper,
+.content-for-layout{
+  color:var(--r30-text);
+}
+
+.section-background{
+  transition:background-color .35s ease,opacity .35s ease;
+}
+
+/* Header — fix dark text on dark/translucent background */
+#header-group,
+.header-section,
+#header-component,
+#header-component .header__row,
+#header-component .header__row--top{
+  color:var(--r30-text)!important;
+}
+
+#header-component .header__row--top,
+#header-component .header__row{
+  background:rgba(7,17,31,.88)!important;
+  border-color:rgba(255,255,255,.08)!important;
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+}
+
+#header-component a,
+#header-component button,
+#header-component summary,
+#header-component .header__menu-item,
+#header-component .menu-list__link,
+#header-component .menu-list__link span,
+#header-component .localization-selector,
+#header-component .header__icon{
+  color:var(--r30-text)!important;
+}
+
+#header-component svg{
+  color:currentColor!important;
+}
+
+#header-component a:hover,
+#header-component button:hover,
+#header-component .header__menu-item:hover,
+#header-component .menu-list__link:hover{
+  color:var(--r30-cyan)!important;
+  text-shadow:0 0 16px rgba(51,220,255,.18);
+}
+
+/* General surfaces */
+.drawer__inner,
+.menu-drawer,
+.cart-drawer,
+.predictive-search,
+.search-modal,
+dialog{
+  background:rgba(10,21,36,.96)!important;
+  color:var(--r30-text)!important;
+  border-color:var(--r30-border)!important;
+}
+
+.footer,
+footer{
+  color:var(--r30-text)!important;
+}
+
+.footer a,
+footer a,
+.footer button,
+footer button{
+  color:var(--r30-text)!important;
+}
+
+.footer a:hover,
+footer a:hover{
+  color:var(--r30-cyan)!important;
+}
+
+input,
+textarea,
+select,
+.field__input{
+  background:rgba(19,38,58,.9)!important;
+  color:var(--r30-text)!important;
+  border-color:#29425C!important;
+}
+
+input::placeholder,
+textarea::placeholder{
+  color:var(--r30-muted)!important;
+  opacity:.85;
+}
+
+.card,
+.product-card,
+.collection-card{
+  color:var(--r30-text);
+}
+
+.price,
+.price-item{
+  color:var(--r30-text);
+}
+
+.price--on-sale .price-item--sale,
+.price-item--sale{
+  color:#40F7B1!important;
+}
+
+/* Keep primary CTA vivid but consistent */
+.button:not(.button-unstyled),
+.add-to-cart-button,
+.cart__checkout-button,
+.product-form__submit{
+  color:#fff!important;
+  background:linear-gradient(100deg,var(--r30-cyan),var(--r30-blue),var(--r30-violet))!important;
+  border-color:transparent!important;
+}
+
+.button-secondary:not(.button-unstyled){
+  color:var(--r30-text)!important;
+  background:rgba(255,255,255,.07)!important;
+  border:1px solid var(--r30-border)!important;
+}
+
+/* Floating WhatsApp */
+.floating-whatsapp{
+  position:fixed;
+  left:24px;
+  bottom:24px;
+  z-index:9999;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:58px;
+  padding:10px 16px 10px 10px;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:999px;
+  background:linear-gradient(135deg,#25D366,#17B954);
+  color:#fff!important;
+  text-decoration:none!important;
+  box-shadow:
+    0 16px 40px rgba(0,0,0,.32),
+    0 0 0 0 rgba(37,211,102,.34);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1),box-shadow .28s ease,filter .28s ease;
+  animation:r30WhatsAppPulse 2.8s ease-out infinite;
+}
+
+.floating-whatsapp:hover{
+  transform:translateY(-4px) scale(1.03);
+  filter:saturate(1.08);
+  box-shadow:
+    0 20px 48px rgba(0,0,0,.38),
+    0 0 26px rgba(37,211,102,.24);
+}
+
+.floating-whatsapp__icon{
+  width:38px;
+  height:38px;
+  flex:0 0 38px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+}
+
+.floating-whatsapp__icon svg{
+  width:25px;
+  height:25px;
+  fill:#fff;
+}
+
+.floating-whatsapp__label{
+  font-weight:800;
+  font-size:1rem;
+  line-height:1;
+  white-space:nowrap;
+}
+
+@keyframes r30WhatsAppPulse{
+  0%{box-shadow:0 16px 40px rgba(0,0,0,.32),0 0 0 0 rgba(37,211,102,.34)}
+  70%{box-shadow:0 16px 40px rgba(0,0,0,.32),0 0 0 14px rgba(37,211,102,0)}
+  100%{box-shadow:0 16px 40px rgba(0,0,0,.32),0 0 0 0 rgba(37,211,102,0)}
+}
+
+@media screen and (max-width:749px){
+  .floating-whatsapp{
+    left:16px;
+    bottom:18px;
+    min-height:54px;
+    width:54px;
+    height:54px;
+    padding:8px;
+    justify-content:center;
+  }
+  .floating-whatsapp__icon{
+    width:36px;
+    height:36px;
+    flex-basis:36px;
+    background:transparent;
+  }
+  .floating-whatsapp__label{
+    display:none;
+  }
+}
+
+@media (prefers-reduced-motion:reduce){
+  .floating-whatsapp{
+    animation:none!important;
+    transition:none!important;
+  }
+}

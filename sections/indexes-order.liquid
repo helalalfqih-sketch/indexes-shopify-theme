@@ -1,0 +1,183 @@
+<section class="ix-page ix-order-page">
+  <h1 class="ix-page__title">إتمام الطلب</h1>
+
+  {% if section.settings.enable_order_bridge and section.settings.order_api_url != blank and section.settings.turnstile_site_key != blank %}
+  <ol class="ix-order-steps" aria-label="خطوات الطلب">
+    <li class="is-active"><b>1</b><span>البيانات</span></li>
+    <li><b>2</b><span>التأكيد</span></li>
+    <li><b>3</b><span>تم</span></li>
+  </ol>
+  {% endif %}
+
+  {% if cart.item_count == 0 %}
+    <div class="ix-empty-state">
+      <p>لا توجد منتجات في السلة لإرسال طلب.</p>
+      <a class="ix-primary-link" href="{{ routes.all_products_collection_url }}">العودة للتسوق</a>
+    </div>
+  {% else %}
+    <form
+      class="ix-order-form"
+      data-ix-order-bridge
+      data-order-bridge-url="{{ section.settings.order_api_url | escape }}"
+      data-order-bridge-enabled="{% if section.settings.enable_order_bridge %}true{% else %}false{% endif %}"
+      data-turnstile-sitekey="{{ section.settings.turnstile_site_key | escape }}"
+      data-whatsapp-number="{{ section.settings.whatsapp_number | escape }}"
+    >
+      {% if section.settings.enable_order_bridge and section.settings.order_api_url != blank and section.settings.turnstile_site_key != blank %}
+      <h2>معلومات العميل</h2>
+
+      <label>
+        <span>الاسم الكامل</span>
+        <input type="text" name="name" autocomplete="name" required placeholder="أدخل اسمك الكامل">
+      </label>
+
+      <label>
+        <span>رقم واتساب</span>
+        <span class="ix-phone-field">
+          <b>+967</b>
+          <input type="tel" name="phone" inputmode="tel" autocomplete="tel" required placeholder="7xxxxxxxx">
+        </span>
+      </label>
+
+      <label>
+        <span>المحافظة</span>
+        <select name="governorate" required>
+          <option value="">اختر المحافظة</option>
+          <option>صنعاء</option>
+          <option>أمانة العاصمة</option>
+          <option>عدن</option>
+          <option>تعز</option>
+          <option>الحديدة</option>
+          <option>إب</option>
+          <option>ذمار</option>
+          <option>حضرموت</option>
+          <option>عمران</option>
+          <option>حجة</option>
+          <option>المحويت</option>
+          <option>ريمة</option>
+          <option>البيضاء</option>
+          <option>مأرب</option>
+          <option>الجوف</option>
+          <option>صعدة</option>
+          <option>شبوة</option>
+          <option>لحج</option>
+          <option>أبين</option>
+          <option>الضالع</option>
+          <option>المهرة</option>
+          <option>سقطرى</option>
+        </select>
+      </label>
+
+      <label>
+        <span>المدينة / المنطقة</span>
+        <input type="text" name="city" autocomplete="address-level2" placeholder="أدخل المدينة أو المنطقة">
+      </label>
+
+      <label>
+        <span>ملاحظات إضافية (اختياري)</span>
+        <textarea name="notes" rows="3" placeholder="لون، موقع التسليم، أو أي ملاحظة مهمة"></textarea>
+      </label>
+
+      {% endif %}
+      <div class="ix-order-cart" data-ix-order-cart>
+        <h2>ملخص المنتجات</h2>
+        {% for item in cart.items %}
+          {% assign ix_item_path = item.url | url_decode %}
+          {% assign ix_item_link = shop.url | append: ix_item_path %}
+          <div
+            class="ix-order-item"
+            data-title="{{ item.product.title | escape }}"
+            data-variant="{{ item.variant.title | escape }}"
+            data-quantity="{{ item.quantity }}"
+            data-variant-gid="gid://shopify/ProductVariant/{{ item.variant.id }}"
+            data-price="{{ item.final_line_price | money_with_currency | strip_html | escape }}"
+            data-url="{{ ix_item_link | escape }}"
+          >
+            <span>{{ item.product.title | escape }} — {{ item.variant.title | escape }} × {{ item.quantity }}</span>
+            <strong>{{ item.final_line_price | money_with_currency }}</strong>
+          </div>
+        {% endfor %}
+        <div class="ix-order-item ix-order-item--total" data-total="{{ cart.total_price | money_with_currency | strip_html | escape }}">
+          <span>المجموع الحالي</span><strong>{{ cart.total_price | money_with_currency }}</strong>
+        </div>
+      </div>
+
+      <p class="ix-order-shipping">{{ 'indexes_ux.delivery_info' | t }}</p>
+      <div class="ix-turnstile-wrap" data-ix-turnstile aria-label="التحقق من الطلب"></div>
+
+      {% if section.settings.enable_order_bridge and section.settings.order_api_url != blank and section.settings.turnstile_site_key != blank %}
+        <button class="ix-order-submit" type="submit" aria-label="تسجيل الطلب ثم تأكيده عبر واتساب">
+          {% render 'indexes-whatsapp-icon' %}
+          <span>سجّل الطلب ثم افتح واتساب</span>
+        </button>
+      {% else %}
+        {% capture ix_wa_help_message %}
+          {{ 'indexes_audit.greeting' | t }}
+          {% for item in cart.items %}
+          - {{ item.product.title }} | {{ 'indexes_audit.variant' | t }}: {{ item.variant.title }} | {{ 'indexes_audit.quantity' | t }}: {{ item.quantity }} | {{ 'indexes_audit.unit_price' | t }}: {{ item.final_price | money_with_currency | strip_html }} | {{ 'indexes_audit.line_total' | t }}: {{ item.final_line_price | money_with_currency | strip_html }} | {{ 'indexes_audit.link' | t }}: {{ shop.url }}{{ item.url }}
+          {% endfor %}
+          {{ 'indexes_audit.currency' | t }}: {{ cart.currency.iso_code | default: shop.currency }}
+          المجموع الحالي: {{ cart.total_price | money_with_currency | strip_html }}
+          {{ 'indexes_audit.confirmation' | t }}
+        {% endcapture %}
+        <a
+          class="ix-order-submit ix-order-submit--contact"
+          href="https://wa.me/967771370740?text={{ ix_wa_help_message | strip | url_encode }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="التواصل عبر واتساب للاستفسار عن المنتجات"
+          style="text-decoration:none"
+        >
+          {% render 'indexes-whatsapp-icon' %}
+          <span>تواصل عبر واتساب</span>
+        </a>
+      {% endif %}
+
+      <p class="ix-order-status" data-ix-order-status role="status" aria-live="polite" hidden></p>
+      {% if section.settings.enable_order_bridge and section.settings.order_api_url != blank and section.settings.turnstile_site_key != blank %}
+        <p class="ix-order-note">لا يُفتح واتساب حتى يُؤكد الخادم تسجيل الطلب والتحقق من المبلغ والتوفر.</p>
+      {% else %}
+        <p class="ix-order-note">{{ 'indexes_audit.confirmation' | t }}</p>
+      {% endif %}
+    </form>
+  {% endif %}
+</section>
+
+<script src="{{ 'indexes-order-bridge.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Indexes WhatsApp order",
+  "settings": [
+    {
+      "type": "header",
+      "content": "ربط الطلبات - معاينة فقط"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_order_bridge",
+      "label": "تمكين تسجيل الطلب بعد اكتمال اختبار الخادم",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "order_api_url",
+      "label": "مسار الخادم الآمن للطلب",
+      "default": "/apps/indexes-orders",
+      "info": "المسار الوحيد المسموح: /apps/indexes-orders بعد إعداد Shopify App Proxy. لا تضع مفاتيح سرية."
+    },
+    {
+      "type": "text",
+      "id": "turnstile_site_key",
+      "label": "Turnstile public site key",
+      "info": "المفتاح العام فقط، وليس مفتاح التحقق السري."
+    },
+    {
+      "type": "text",
+      "id": "whatsapp_number",
+      "label": "رقم تأكيد الطلب على واتساب",
+      "default": "967771370740"
+    }
+  ]
+}
+{% endschema %}

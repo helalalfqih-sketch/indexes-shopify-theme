@@ -1,0 +1,23 @@
+{% liquid
+  assign ix_video_media = product.media | where: 'media_type', 'video'
+  assign ix_external_video_media = product.media | where: 'media_type', 'external_video'
+  assign ix_model_media = product.media | where: 'media_type', 'model'
+  assign ix_needs_media_runtime = false
+  if ix_video_media.size > 0 or ix_external_video_media.size > 0 or ix_model_media.size > 0
+    assign ix_needs_media_runtime = true
+  endif
+%}
+{% if ix_needs_media_runtime %}
+  <script type="importmap">
+    {
+      "imports": {
+        "@theme/component": "{{ 'component.js' | asset_url }}",
+        "@theme/utilities": "{{ 'utilities.js' | asset_url }}",
+        "@theme/events": "{{ 'events.js' | asset_url }}",
+        "@theme/dialog": "{{ 'dialog.js' | asset_url }}",
+        "@theme/scroll-container": "{{ 'scroll-container.js' | asset_url }}"
+      }
+    }
+  </script>
+  <script src="{{ 'media.js' | asset_url }}" type="module" fetchpriority="low"></script>
+{% endif %}

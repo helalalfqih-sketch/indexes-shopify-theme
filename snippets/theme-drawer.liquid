@@ -1,0 +1,15 @@
+{% doc %}
+Loads the drawer component and shared styles without persistent squeeze state.
+{% enddoc %}
+
+{% render 'theme-drawer-styles' %}
+
+<script
+  type="module"
+  src="{{ 'theme-drawer.js' | asset_url }}"
+  fetchpriority="low"
+></script>
+
+<script>
+  try { sessionStorage.removeItem('theme-drawer-open'); } catch (e) {}
+</script>

@@ -1,0 +1,70 @@
+<section class="ix-page ix-cart-page">
+  <div class="ix-page-title-row">
+    <div>
+      <h1 class="ix-page__title">سلة التسوق ({{ cart.item_count }})</h1>
+      <p class="ix-page-subtitle">راجع المنتجات والكميات قبل المتابعة.</p>
+    </div>
+  </div>
+
+  {% if cart.item_count == 0 %}
+    <div class="ix-empty-state">
+      <p>سلة التسوق فارغة.</p>
+      <a class="ix-primary-link" href="{{ routes.all_products_collection_url }}">ابدأ التسوق</a>
+    </div>
+  {% else %}
+    <form action="{{ routes.cart_url }}" method="post" class="ix-cart-form">
+      <div class="ix-cart-items">
+        {% for item in cart.items %}
+          <article class="ix-cart-item">
+            <a class="ix-cart-item__image" href="{{ item.url }}">
+              {% if item.image %}
+                {{ item.image | image_url: width: 320 | image_tag: loading: 'lazy', widths: '120,180,240,320', sizes: '92px', alt: item.image.alt | default: item.product.title }}
+              {% endif %}
+            </a>
+
+            <div class="ix-cart-item__content">
+              <a class="ix-cart-item__title" href="{{ item.url }}">{{ item.product.title }}</a>
+              {% unless item.product.has_only_default_variant %}<small>{{ item.variant.title }}</small>{% endunless %}
+              <strong>{{ item.final_price | money_with_currency }}</strong>
+              <small class="ix-cart-item__line-total">إجمالي المنتج: {{ item.final_line_price | money_with_currency }}</small>
+
+              <div class="ix-cart-item__controls">
+                <label>
+                  <span class="visually-hidden">الكمية</span>
+                  <input type="number" name="updates[]" value="{{ item.quantity }}" min="0" inputmode="numeric" aria-label="كمية {{ item.product.title | escape }}">
+                </label>
+                <a href="{{ item.url_to_remove }}" class="ix-cart-item__remove" aria-label="حذف {{ item.product.title | escape }}">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-8 0 1 13h8l1-13M10 11v5M14 11v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      <p data-ix-cart-update-note>{{ 'indexes_audit.update_cart' | t }}</p>
+      <button class="ix-cart-update" type="submit" name="update">تحديث السلة</button>
+
+      <aside class="ix-cart-summary">
+        <h2>ملخص السلة</h2>
+        <dl>
+          <div><dt>المجموع الفرعي</dt><dd>{{ cart.items_subtotal_price | money_with_currency }}</dd></div>
+          <div><dt>تكلفة التوصيل</dt><dd>تُحدد عند التأكيد</dd></div>
+          <div class="ix-cart-summary__total"><dt>المجموع الحالي</dt><dd>{{ cart.total_price | money_with_currency }}</dd></div>
+        </dl>
+        <a class="ix-cart-whatsapp" href="/pages/complete-order" aria-label="متابعة مراجعة الطلب">
+          {% render 'indexes-whatsapp-icon' %}<span>مراجعة تفاصيل الطلب</span>
+        </a>
+        <p>{{ 'indexes_audit.confirmation' | t }}</p>
+        {% render 'indexes-policy-links' %}
+      </aside>
+    </form>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Indexes cart",
+  "settings": []
+}
+{% endschema %}

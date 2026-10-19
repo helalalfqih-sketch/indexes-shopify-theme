@@ -1,0 +1,9 @@
+{{ 'indexes-recommendations.css' | asset_url | stylesheet_tag }}
+<section class="ix-related" data-ix-recommendations data-product-id="{{ product.id }}" aria-labelledby="ix-related-title">
+  <h2 id="ix-related-title">منتجات قد تعجبك</h2>
+  <div class="ix-related-grid" data-ix-recommendations-grid></div>
+</section>
+<script src="{{ 'indexes-recommendations.js' | asset_url }}" defer></script>
+{% schema %}
+{"name":"Indexes recommendations","settings":[],"presets":[{"name":"Indexes recommendations"}]}
+{% endschema %}

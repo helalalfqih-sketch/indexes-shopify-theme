@@ -1,0 +1,202 @@
+{% liquid
+  assign current_sort = search.sort_by | default: search.default_sort_by
+%}
+
+<section class="ix-page ix-search-page" aria-labelledby="ix-search-title">
+  <nav class="ix-breadcrumb" aria-label="مسار التنقل">
+    <a href="{{ routes.root_url }}">الرئيسية</a><span>‹</span><span>البحث</span>
+  </nav>
+
+  {% if search.performed %}
+    {% paginate search.results by 24 %}
+      <header class="ix-page-title-row ix-catalog-heading ix-search-heading">
+        <div>
+          <h1 class="ix-page__title" id="ix-search-title">نتائج البحث</h1>
+          <p class="ix-page-subtitle">عن «{{ search.terms | escape }}»</p>
+        </div>
+        <span class="ix-result-count">{{ paginate.items }} نتيجة</span>
+      </header>
+
+      <form class="ix-collection-tools ix-search-tools" action="{{ routes.search_url }}" method="get">
+        <input type="hidden" name="q" value="{{ search.terms | escape }}">
+        <input type="hidden" name="type" value="product">
+
+        <details class="ix-filter-dropdown">
+          <summary>
+            <img src="https://cdn.shopify.com/s/files/1/0664/0110/8053/files/indexes-original-filter-icon-1000491502.png?v=1792361609&width=64" alt="" width="32" height="32">
+            تصفية
+          </summary>
+          <div class="ix-filter-dropdown__panel">
+            {% assign has_filter_values = false %}
+            {% for filter in search.filters %}
+              {% liquid
+                assign filter_label = filter.label
+                case filter.label
+                  when 'Availability'
+                    assign filter_label = 'التوفر'
+                  when 'Price'
+                    assign filter_label = 'السعر'
+                  when 'Product type'
+                    assign filter_label = 'نوع المنتج'
+                  when 'Vendor'
+                    assign filter_label = 'العلامة التجارية'
+                endcase
+              %}
+              {% if filter.type == 'list' or filter.type == 'boolean' %}
+                {% assign has_filter_values = true %}
+                <fieldset>
+                  <legend>{{ filter_label | escape }}</legend>
+                  {% for value in filter.values %}
+                    {% liquid
+                      assign value_label = value.label
+                      case value.label
+                        when 'In stock'
+                          assign value_label = 'متوفر'
+                        when 'Out of stock'
+                          assign value_label = 'غير متوفر'
+                      endcase
+                    %}
+                    <label>
+                      <input
+                        type="checkbox"
+                        name="{{ value.param_name | escape }}"
+                        value="{{ value.value | escape }}"
+                        {% if value.active %}checked{% endif %}
+                        {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                      >
+                      <span>{{ value_label | escape }}</span>
+                      <small>{{ value.count }}</small>
+                    </label>
+                  {% endfor %}
+                </fieldset>
+              {% elsif filter.type == 'price_range' %}
+                {% assign has_filter_values = true %}
+                <fieldset>
+                  <legend>{{ filter_label | escape }}</legend>
+                  <div class="ix-filter-price-range">
+                    <label><span>من</span><input type="number" min="0" max="{{ filter.range_max | divided_by: 100.0 }}" step="0.01" name="{{ filter.min_value.param_name | escape }}" {% if filter.min_value.value != blank %}value="{{ filter.min_value.value | divided_by: 100.0 }}"{% endif %} placeholder="0" inputmode="decimal"></label>
+                    <label><span>إلى</span><input type="number" min="0" max="{{ filter.range_max | divided_by: 100.0 }}" step="0.01" name="{{ filter.max_value.param_name | escape }}" {% if filter.max_value.value != blank %}value="{{ filter.max_value.value | divided_by: 100.0 }}"{% endif %} placeholder="{{ filter.range_max | divided_by: 100.0 }}" inputmode="decimal"></label>
+                  </div>
+                </fieldset>
+              {% endif %}
+            {% endfor %}
+            {% unless has_filter_values %}
+              <p>لا توجد فلاتر إضافية لهذه النتائج.</p>
+            {% endunless %}
+            <button class="ix-filter-apply" type="submit">تطبيق</button>
+            <a class="ix-filter-clear" href="{{ routes.search_url }}?q={{ search.terms | url_encode }}&amp;type=product">مسح الفلاتر</a>
+          </div>
+        </details>
+
+        {% if search.sort_options.size > 0 %}
+          <label class="ix-tool-select">
+            <span>الترتيب</span>
+            <select name="sort_by" onchange="this.form.submit()" aria-label="ترتيب نتائج البحث">
+              {% for option in search.sort_options %}
+                {% liquid
+                  assign option_label = option.name
+                  if option.name == 'Most relevant'
+                    assign option_label = 'الأكثر صلة'
+                  endif
+                  case option.value
+                    when 'relevance'
+                      assign option_label = 'الأكثر صلة'
+                    when 'best-selling'
+                      assign option_label = 'الأكثر مبيعًا'
+                    when 'title-ascending'
+                      assign option_label = 'الاسم: أ–ي'
+                    when 'title-descending'
+                      assign option_label = 'الاسم: ي–أ'
+                    when 'price-ascending'
+                      assign option_label = 'السعر: من الأقل إلى الأعلى'
+                    when 'price-descending'
+                      assign option_label = 'السعر: من الأعلى إلى الأقل'
+                    when 'created-ascending'
+                      assign option_label = 'التاريخ: الأقدم أولًا'
+                    when 'created-descending'
+                      assign option_label = 'التاريخ: الأحدث أولًا'
+                  endcase
+                %}
+                <option value="{{ option.value | escape }}" {% if option.value == current_sort %}selected{% endif %}>{{ option_label | escape }}</option>
+              {% endfor %}
+            </select>
+          </label>
+        {% endif %}
+      </form>
+
+      {% if paginate.items > 0 %}
+        <div class="ix-product-grid ix-product-grid--search">
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              {% render 'indexes-product-card', product: item, show_favorite: true %}
+            {% else %}
+              <article class="ix-search-resource-card">
+                <div>
+                  <small>
+                    {% case item.object_type %}
+                      {% when 'article' %}مقال
+                      {% when 'page' %}صفحة
+                      {% else %}نتيجة
+                    {% endcase %}
+                  </small>
+                  <h2><a href="{{ item.url }}">{{ item.title | escape }}</a></h2>
+                  {% if item.content != blank %}<p>{{ item.content | strip_html | truncate: 150 | escape }}</p>{% endif %}
+                </div>
+                <a class="ix-search-resource-card__link" href="{{ item.url }}">عرض النتيجة</a>
+              </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        {% if paginate.pages > 1 %}
+          <nav class="ix-pagination" aria-label="صفحات نتائج البحث">
+            {% if paginate.previous %}<a href="{{ paginate.previous.url }}">السابق</a>{% endif %}
+            <span>صفحة {{ paginate.current_page }} من {{ paginate.pages }}</span>
+            {% if paginate.next %}<a href="{{ paginate.next.url }}">التالي</a>{% endif %}
+          </nav>
+        {% endif %}
+      {% else %}
+        <div class="ix-empty-state ix-search-empty">
+          <h2>لا توجد نتائج مطابقة</h2>
+          <p>جرّب عبارة بحث أخرى أو تصفّح المنتجات المتاحة.</p>
+          <a href="{{ routes.all_products_collection_url }}">تصفح المنتجات</a>
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  {% else %}
+    <header class="ix-page-title-row ix-catalog-heading ix-search-heading">
+      <div>
+        <h1 class="ix-page__title" id="ix-search-title">البحث</h1>
+        <p class="ix-page-subtitle">استخدم حقل البحث للعثور على منتجات أو محتوى من المتجر.</p>
+      </div>
+    </header>
+  {% endif %}
+</section>
+
+{% stylesheet %}
+.ix-search-page{direction:rtl}
+.ix-search-heading{margin-bottom:16px}
+.ix-search-heading .ix-page-subtitle{overflow-wrap:anywhere}
+.ix-search-tools{margin-bottom:18px!important}
+.ix-search-resource-card{display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-width:0;min-height:220px;padding:18px;border:1px solid var(--ix-line);border-radius:12px;background:#fff;box-shadow:var(--ix-shadow-sm)}
+.ix-search-resource-card small{display:block;margin-bottom:8px;color:var(--ix-primary);font-size:11px;font-weight:700}
+.ix-search-resource-card h2{margin:0;font-size:18px;line-height:1.5;overflow-wrap:anywhere}
+.ix-search-resource-card h2 a{color:var(--ix-text);text-decoration:none}
+.ix-search-resource-card p{margin:10px 0 0;color:var(--ix-muted);font-size:13px;line-height:1.8;overflow-wrap:anywhere}
+.ix-search-resource-card__link{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;min-height:44px;padding:8px 14px;border-radius:10px;background:var(--ix-primary);color:#fff!important;text-decoration:none;font-size:12px;font-weight:700}
+.ix-search-empty{display:grid;justify-items:center;gap:10px;padding:32px 18px;border:1px solid var(--ix-line);border-radius:12px;background:#fff;text-align:center}
+.ix-search-empty h2,.ix-search-empty p{margin:0}
+.ix-search-empty a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 18px;border-radius:10px;background:var(--ix-primary);color:#fff!important;text-decoration:none;font-weight:700}
+@media(max-width:749px){
+  .ix-search-resource-card{min-height:180px;padding:13px}
+  .ix-search-resource-card h2{font-size:15px}
+  .ix-search-resource-card p{font-size:12px}
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Indexes search",
+  "settings": []
+}
+{% endschema %}

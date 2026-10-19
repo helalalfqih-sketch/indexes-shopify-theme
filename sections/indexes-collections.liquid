@@ -1,0 +1,36 @@
+{% liquid
+  assign category_rows = 'الصحة-والجمال|الصحة والجمال,المنزل-والمطبخ|المنزل والمطبخ,السيارات-وملحقاتها|مستلزمات السيارات,الأدوات-والمعدات|الأدوات والمعدات,الإلكترونيات-والهواتف|الإلكترونيات,الألعاب-والأطفال|الأطفال والألعاب,الرياضة-واللياقة|الرياضة واللياقة,الكاميرات-والأمن|الكاميرات والأمن,المكتب-والقرطاسية|المكتب والقرطاسية,الهدايا-والهوايات|الهدايا والهوايات,الأزياء-والحقائب|الأزياء والحقائب' | split: ','
+%}
+
+<section class="ix-page ix-collections-page" aria-labelledby="ix-collections-title">
+  <div class="ix-page-title-row ix-catalog-heading">
+    <div>
+      <h1 class="ix-page__title" id="ix-collections-title">الأقسام الرئيسية</h1>
+      <p class="ix-page-subtitle">استعرض مجموعات المتجر المتاحة.</p>
+    </div>
+  </div>
+
+  <div class="ix-collection-grid">
+    {% for row in category_rows %}
+      {% assign parts = row | split: '|' %}
+      {% assign category = collections[parts[0]] %}
+      {% if category != blank %}
+        <a class="ix-collection-card ix-collection-card--banner" href="{{ category.url }}">
+          {% render 'indexes-category-banner', category_handle: category.handle, category_title: category.title, banner_variant: 'card' %}
+          <span class="ix-collection-card__content">
+            <strong>{{ category.title }}</strong>
+            <small>{{ category.products_count }} منتج</small>
+          </span>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Indexes collections",
+  "settings": [],
+  "presets": [{"name": "Indexes collections"}]
+}
+{% endschema %}

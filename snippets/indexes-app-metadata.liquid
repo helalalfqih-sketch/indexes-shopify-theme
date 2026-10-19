@@ -1,0 +1,14 @@
+{% comment %}
+Online-only branded home-screen metadata. No service worker, install prompt or cache.
+Manifest is intentionally linked only on the approved installation origin.
+Visitor shopifypreview.com links are for visual review, not Android installation proof.
+{% endcomment %}
+{% if request.host == 'indexesstore.myshopify.com' %}
+  <link rel="manifest" href="{{ 'indexes-app-manifest.json' | asset_url }}" crossorigin="use-credentials">
+{% endif %}
+<meta name="application-name" content="اندكس ستور">
+<meta name="apple-mobile-web-app-title" content="اندكس ستور">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" sizes="192x192" href="{{ 'indexes-app-192.png' | asset_url }}">
+

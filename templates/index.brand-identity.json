@@ -1,0 +1,195 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "brand_gallery": {
+      "type": "indexes-brand-gallery",
+      "blocks": {
+        "master": {
+          "type": "asset",
+          "settings": {
+            "title": "الشعار الأساسي",
+            "image": "shopify://shop_images/indexes-store-brand-master-20261017.jpg",
+            "group": "core"
+          }
+        },
+        "symbol": {
+          "type": "asset",
+          "settings": {
+            "title": "الرمز المستقل",
+            "image": "shopify://shop_images/indexes-store-symbol-20261017.jpg",
+            "group": "core"
+          }
+        },
+        "app": {
+          "type": "asset",
+          "settings": {
+            "title": "أيقونة التطبيق",
+            "image": "shopify://shop_images/indexes-identity-app-20261017.jpg",
+            "group": "core"
+          }
+        },
+        "logo3d": {
+          "type": "asset",
+          "settings": {
+            "title": "الشعار المجسم",
+            "image": "shopify://shop_images/indexes-identity-logo3d-20261017.jpg",
+            "group": "core"
+          }
+        },
+        "bag": {
+          "type": "asset",
+          "settings": {
+            "title": "كيس التسوق",
+            "image": "shopify://shop_images/indexes-identity-bag-20261017.jpg",
+            "group": "pack"
+          }
+        },
+        "box": {
+          "type": "asset",
+          "settings": {
+            "title": "علبة المنتج",
+            "image": "shopify://shop_images/indexes-identity-box-20261017.jpg",
+            "group": "pack"
+          }
+        },
+        "shipping": {
+          "type": "asset",
+          "settings": {
+            "title": "صندوق الشحن الأبيض",
+            "image": "shopify://shop_images/indexes-identity-shipping-20261017.jpg",
+            "group": "pack"
+          }
+        },
+        "kraft": {
+          "type": "asset",
+          "settings": {
+            "title": "صندوق الشحن الكرافت",
+            "image": "shopify://shop_images/indexes-identity-kraft-20261017.jpg",
+            "group": "pack"
+          }
+        },
+        "sticker": {
+          "type": "asset",
+          "settings": {
+            "title": "الملصق الدائري",
+            "image": "shopify://shop_images/indexes-identity-sticker-20261017.jpg",
+            "group": "pack"
+          }
+        },
+        "sticker_wordmark": {
+          "type": "asset",
+          "settings": {
+            "title": "ملصق الشعار الكامل",
+            "image": "shopify://shop_images/indexes-identity-sticker-wordmark-20261018.jpg",
+            "group": "pack"
+          }
+        },
+        "roll": {
+          "type": "asset",
+          "settings": {
+            "title": "رول الملصقات",
+            "image": "shopify://shop_images/indexes-identity-roll-20261017.jpg",
+            "group": "pack"
+          }
+        },
+        "brand_pattern": {
+          "type": "asset",
+          "settings": {
+            "title": "الشريط الزخرفي للهوية",
+            "image": "shopify://shop_images/indexes-identity-pattern-20261018.jpg",
+            "group": "pack"
+          }
+        },
+        "shirt": {
+          "type": "asset",
+          "settings": {
+            "title": "زي الفريق",
+            "image": "shopify://shop_images/indexes-identity-shirt-20261017.jpg",
+            "group": "applications"
+          }
+        },
+        "badge": {
+          "type": "asset",
+          "settings": {
+            "title": "بطاقة الموظف",
+            "image": "shopify://shop_images/indexes-identity-badge-20261017.jpg",
+            "group": "applications"
+          }
+        },
+        "badge_lanyard": {
+          "type": "asset",
+          "settings": {
+            "title": "بطاقة الموظف بالشريط الأحمر",
+            "image": "shopify://shop_images/indexes-identity-badge-lanyard-20261018.jpg",
+            "group": "applications"
+          }
+        },
+        "van": {
+          "type": "asset",
+          "settings": {
+            "title": "نموذج هوية سيارة التوصيل",
+            "image": "shopify://shop_images/indexes-identity-van-20261017.jpg",
+            "group": "applications"
+          }
+        },
+        "flow": {
+          "type": "asset",
+          "settings": {
+            "title": "رسوم التسوق والتغليف",
+            "image": "shopify://shop_images/indexes-identity-flow-20261017.jpg",
+            "group": "applications"
+          }
+        },
+        "contact": {
+          "type": "asset",
+          "settings": {
+            "title": "قالب بطاقة التواصل",
+            "image": "shopify://shop_images/indexes-identity-contact-20261017.jpg",
+            "group": "applications"
+          }
+        },
+        "receipt": {
+          "type": "asset",
+          "settings": {
+            "title": "نموذج الإيصال",
+            "image": "shopify://shop_images/indexes-identity-receipt-20261018.jpg",
+            "group": "applications"
+          }
+        }
+      },
+      "block_order": [
+        "master",
+        "symbol",
+        "app",
+        "logo3d",
+        "bag",
+        "box",
+        "shipping",
+        "kraft",
+        "sticker",
+        "sticker_wordmark",
+        "roll",
+        "brand_pattern",
+        "shirt",
+        "badge",
+        "badge_lanyard",
+        "van",
+        "flow",
+        "contact",
+        "receipt"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "brand_gallery"
+  ]
+}
