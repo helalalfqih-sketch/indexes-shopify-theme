@@ -1,0 +1,1 @@
+# indexes-shopify-theme
