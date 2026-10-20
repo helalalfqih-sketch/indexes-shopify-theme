@@ -43,6 +43,7 @@ Changed files:
 | Shopping surfaces | PASS | Hosted home, product and cart opened on the correct draft; product navigation retained the preference. |
 | Responsive layout | PASS | Product page at 360, 390, 430, 768 and 1440px had no horizontal document overflow. |
 | System/storage behavior | PASS | Fresh hosted dark-device context selected dark automatically. An isolated browser fixture using the actual snippets and script verified device changes, saved-choice priority, reload, cross-tab sync and blocked storage. |
+| Account sheet appearance | PASS | Opened the real Shopify sign-in sheet on desktop (1440px) and mobile (390px), in both modes. Dialog/heading and email-control colors match the selected palette; main text contrast exceeds 4.5:1. No sign-in submitted. |
 | Final hosted cart/keyboard | PASS | Correct draft, dark empty-cart surface, Enter-key toggle, no page errors and no horizontal overflow at 360, 390, 430, 768 and 1440px. |
 | Source syntax | PASS / limited | JavaScript syntax and PostCSS parse passed; both new Liquid snippets parsed. LiquidJS cannot parse Shopify's existing `style` tag in the full layout, so it is not treated as a full Shopify theme check. |
 | Full production release/performance audit | NOT RUN | No publication, full theme-check, new order, checkout, account-flow or Core Web Vitals audit. |
@@ -61,3 +62,14 @@ This is an unpublished preview for review, not a production release. Review the
 actual appearance before publication. The published theme is the backup; its
 original two files also match the repository parent commit. Revert this branch's
 appearance files or keep using the unchanged published theme to roll back.
+
+## Account-sheet regression correction
+
+The original account styling fixed its background to white while its text used
+`--ix-text`. Dark mode therefore produced light text on white. The appearance
+layer now explicitly sets Shopify's documented account-sheet background, text,
+card and control variables together on `shopify-account.ix-shopify-account`.
+Unneeded global native-theme color overrides were removed. This patch changes
+only the appearance CSS; it does not alter sign-in providers or authentication.
+
+Reference: https://shopify.dev/docs/api/storefront-web-components/components/shopify-account

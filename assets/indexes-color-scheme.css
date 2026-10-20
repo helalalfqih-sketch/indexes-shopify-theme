@@ -15,7 +15,22 @@ html[data-ix-theme="dark"]{
   --ix-soft:#39212a;--ix-accent-text:#ff8089;
   --ix-catalog-low:#202c3b;
   --ix-shadow-sm:0 3px 14px rgb(0 0 0/.18);
-  --color-background:#0f141c;--color-foreground:#edf2f7;
+}
+/* Shopify's account sheet uses its own shadow DOM. Set its documented palette
+   explicitly so a white sheet cannot inherit light storefront text. */
+shopify-account.ix-shopify-account{
+  --shopify-account-color-background:var(--ix-surface);
+  --shopify-account-color-text:var(--ix-text);
+  --shopify-account-color-background-subdued:var(--ix-elevated,#f7f8fa);
+  --shopify-account-color-text-subdued:var(--ix-muted);
+  --shopify-account-color-border:var(--ix-line);
+  --shopify-account-color-card-background:var(--ix-surface);
+  --shopify-account-color-card-text:var(--ix-text);
+  --shopify-account-color-control-background:var(--ix-elevated,#f7f8fa);
+  --shopify-account-color-control-text:var(--ix-text);
+  --shopify-account-color-accent:#e0000b;
+  --shopify-account-color-accent-hover:#ad0010;
+  --shopify-account-color-accent-text:#fff;
 }
 html[data-ix-theme="dark"] :is(body,.page-wrapper,.content-for-layout,.ix-home,.ix-footer){background:var(--ix-bg)!important;color:var(--ix-text)!important}
 html[data-ix-theme="dark"] :is(.ix-shell,.ix-shell__quick,.ix-mobile-nav,.ix-product-card,.ix-collection-card,.ix-wishlist-card,.ix-product-info,.ix-product-tabs,.ix-cart-item,.ix-cart-summary,.ix-order-form,.ix-order-item,.ix-account-profile,.ix-account-menu,.ix-account-guest,.ix-service-panel,.ix-footer__card,.ix-related-card,.ix-brand-asset,.ix-install-dialog,.ix-collection-heading,.ix-page-search,.ix-predictive,.ix-filter-dropdown__panel,.ix-product-action-buttons){background:var(--ix-surface)!important;color:var(--ix-text)!important;border-color:var(--ix-line)!important}
