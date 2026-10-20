@@ -37,6 +37,7 @@ Renders the unified Indexes Store navigation shell on non-home storefront pages.
   </div>
 
   <div class="ix-shell__search-row">
+    {% render 'indexes-color-scheme-toggle' %}
     <div class="ix-search-wrap" data-ix-predictive-wrap>
       <form class="ix-shell__search" action="{{ routes.search_url }}" method="get" role="search" data-ix-predictive-form>
         <img class="ix-shell__search-icon" src="https://cdn.shopify.com/s/files/1/0664/0110/8053/files/ix-original-10-search-icon.png?v=1792358847&width=64" alt="" width="22" height="22">

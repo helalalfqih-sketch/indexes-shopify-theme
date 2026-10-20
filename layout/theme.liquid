@@ -17,6 +17,7 @@
   lang="ar" dir="rtl"
 >
   <head>
+    {% render 'indexes-color-scheme-init' %}
     {%- if settings.favicon != blank -%}
       <link
         rel="icon"
@@ -75,6 +76,7 @@
     {{ 'indexes-brand-identity.css' | asset_url | stylesheet_tag }}
 {{ 'indexes-install.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'indexes-install.js' | asset_url }}" defer></script>
+{{ 'indexes-color-scheme.css' | asset_url | stylesheet_tag }}
 </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
@@ -223,6 +225,7 @@
     {% endif %}
     {% render 'floating-whatsapp' %}
     {% render 'indexes-install-ui' %}
+    <script src="{{ 'indexes-color-scheme.js' | asset_url }}" async></script>
   </body>
 </html>
 
