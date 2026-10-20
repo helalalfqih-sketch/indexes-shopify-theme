@@ -1,0 +1,10 @@
+{% comment %}Set the surface before styles paint; storage is optional.{% endcomment %}
+<script>
+  (function () {
+    var preference;
+    try { preference = localStorage.getItem('indexes_color_scheme_v1'); } catch (error) {}
+    var dark = preference === 'dark' || (preference !== 'light' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.dataset.ixTheme = dark ? 'dark' : 'light';
+    document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+  })();
+</script>
